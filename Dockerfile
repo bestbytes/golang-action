@@ -16,6 +16,12 @@ RUN set -eux; \
   echo "287b08291e14f1fae8ba44374b26a2b12eb941af3497ed0ca649253e21ba2f83 $GOPATH/bin/dep" | sha256sum -c -; \
   chmod +x "${GOPATH}/bin/dep";
 
+RUN apt-get update && apt-get install -y \
+  libvips \
+  libvips-dev \
+  libvips-tools \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
